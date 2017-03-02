@@ -45,9 +45,9 @@ get_ipython().magic('matplotlib inline')
 
 # Here is the OpenData accident records file.
 # Just 10,000 for now...
-axefile = "https://data.cityofnewyork.us/resource/qiz3-axqb.json?$limit=1000000&$$app_token=qYFuRx0WY5iIcx3UKdNepMSjC&$order=unique_key"
-schfile = "https://data.cityofnewyork.us/resource/9pyc-nsiu.json?$limit=100000&$$app_token=qYFuRx0WY5iIcx3UKdNepMSjC&$order=ats_system_code"
-# $$app_token=qYFuRx0WY5iIcx3UKdNepMSjC&$order=unique_key'
+
+
+
 # here are the location geojson?
 
 axeresp = urllib.request.urlopen(axefile).read()
