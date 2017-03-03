@@ -1,5 +1,6 @@
 # API Key stores
 apifile
+ApiKeys.*
 
 # Windows image file caches
 Thumbs.db

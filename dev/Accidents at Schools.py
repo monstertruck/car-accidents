@@ -10,7 +10,7 @@
 # 2. Pick one school and look at all the accidents around it. Do more of them happen during the school year?
 # 3. Look at the difference between non-school year and school year accidents. Do they look like they change around schools?
 
-# In[2]:
+# In[1]:
 
 #!/usr/bin/env python
 
@@ -32,7 +32,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import PathPatch
-
+import configparser
 from bokeh.plotting import *
 from bokeh.models import HoverTool
 from collections import OrderedDict
@@ -43,31 +43,35 @@ get_ipython().magic('matplotlib inline')
 
 # In[ ]:
 
-# Here is the OpenData accident records file.
-# Just 10,000 for now...
+# Manage the API keys in a separate .ini file.
+APIKEYS = configparser.ConfigParser()
+APIKEYS.read('../APIKeys.ini');
 
+# Get the keyname (client_id?) and actual API key.
+keyname = APIKEYS['opendata']['keyname']
+thekey = APIKEYS['opendata']['key']
 
+# Generate the correct API call.
+axefile = "https://data.cityofnewyork.us/resource/qiz3-axqb.json?$limit=1000000&$$" + keyname + "=" + thekey + "&$order=unique_key"
+schfile = "https://data.cityofnewyork.us/resource/9pyc-nsiu.json?$limit=1000000&$$" + keyname + "=" + thekey + "&$order=ats_system_code"
 
 # here are the location geojson?
-
 axeresp = urllib.request.urlopen(axefile).read()
 schresp = urllib.request.urlopen(schfile).read()
 
-# old code.
-# jresponse = json.loads(mapresp.decode('utf-8'))
-
-# Load it as a dataframe. 
+# Load them as dataframes.
 axe_data = pd.read_json(axeresp)
 sch_data = pd.read_json(schresp)
 
+
+# In[ ]:
+
 # Okay, what do you look like?
-# print(axe_data.describe())
-# print(sch_data.describe())
-# print(sch_data.head(4))
+print(axe_data.describe())
+print(sch_data.describe())
+print(sch_data.head(4))
 
-print("okay, done here")
-
-get_ipython().magic('time')
+# print("okay, done here")
 
 
 # ## Add Data
